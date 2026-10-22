@@ -10,33 +10,178 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppEvidenceRouteImport } from './routes/_app.evidence'
+import { Route as AppHistoryRouteImport } from './routes/_app.history'
+import { Route as AppResumesRouteImport } from './routes/_app.resumes'
+import { Route as AppWorkspaceRouteImport } from './routes/_app.workspace'
+import { Route as AppEditorRunIdRouteImport } from './routes/_app.editor.$runId'
+import { Route as AppResultsRunIdRouteImport } from './routes/_app.results.$runId'
+import { Route as AppSettingsAccountRouteImport } from './routes/_app.settings.account'
+import { Route as AppSettingsPreferencesRouteImport } from './routes/_app.settings.preferences'
+import { Route as AppSettingsProvidersRouteImport } from './routes/_app.settings.providers'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEvidenceRoute = AppEvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHistoryRoute = AppHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppResumesRoute = AppResumesRouteImport.update({
+  id: '/resumes',
+  path: '/resumes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppWorkspaceRoute = AppWorkspaceRouteImport.update({
+  id: '/workspace',
+  path: '/workspace',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEditorRunIdRoute = AppEditorRunIdRouteImport.update({
+  id: '/editor/$runId',
+  path: '/editor/$runId',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppResultsRunIdRoute = AppResultsRunIdRouteImport.update({
+  id: '/results/$runId',
+  path: '/results/$runId',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsAccountRoute = AppSettingsAccountRouteImport.update({
+  id: '/settings/account',
+  path: '/settings/account',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsPreferencesRoute = AppSettingsPreferencesRouteImport.update({
+  id: '/settings/preferences',
+  path: '/settings/preferences',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsProvidersRoute = AppSettingsProvidersRouteImport.update({
+  id: '/settings/providers',
+  path: '/settings/providers',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/evidence': typeof AppEvidenceRoute
+  '/history': typeof AppHistoryRoute
+  '/resumes': typeof AppResumesRoute
+  '/workspace': typeof AppWorkspaceRoute
+  '/editor/$runId': typeof AppEditorRunIdRoute
+  '/results/$runId': typeof AppResultsRunIdRoute
+  '/settings/account': typeof AppSettingsAccountRoute
+  '/settings/preferences': typeof AppSettingsPreferencesRoute
+  '/settings/providers': typeof AppSettingsProvidersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/evidence': typeof AppEvidenceRoute
+  '/history': typeof AppHistoryRoute
+  '/resumes': typeof AppResumesRoute
+  '/workspace': typeof AppWorkspaceRoute
+  '/editor/$runId': typeof AppEditorRunIdRoute
+  '/results/$runId': typeof AppResultsRunIdRoute
+  '/settings/account': typeof AppSettingsAccountRoute
+  '/settings/preferences': typeof AppSettingsPreferencesRoute
+  '/settings/providers': typeof AppSettingsProvidersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/evidence': typeof AppEvidenceRoute
+  '/_app/history': typeof AppHistoryRoute
+  '/_app/resumes': typeof AppResumesRoute
+  '/_app/workspace': typeof AppWorkspaceRoute
+  '/_app/editor/$runId': typeof AppEditorRunIdRoute
+  '/_app/results/$runId': typeof AppResultsRunIdRoute
+  '/_app/settings/account': typeof AppSettingsAccountRoute
+  '/_app/settings/preferences': typeof AppSettingsPreferencesRoute
+  '/_app/settings/providers': typeof AppSettingsProvidersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/evidence'
+    | '/history'
+    | '/resumes'
+    | '/workspace'
+    | '/editor/$runId'
+    | '/results/$runId'
+    | '/settings/account'
+    | '/settings/preferences'
+    | '/settings/providers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/evidence'
+    | '/history'
+    | '/resumes'
+    | '/workspace'
+    | '/editor/$runId'
+    | '/results/$runId'
+    | '/settings/account'
+    | '/settings/preferences'
+    | '/settings/providers'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/auth'
+    | '/_app/dashboard'
+    | '/_app/evidence'
+    | '/_app/history'
+    | '/_app/resumes'
+    | '/_app/workspace'
+    | '/_app/editor/$runId'
+    | '/_app/results/$runId'
+    | '/_app/settings/account'
+    | '/_app/settings/preferences'
+    | '/_app/settings/providers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +193,125 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/evidence': {
+      id: '/_app/evidence'
+      path: '/evidence'
+      fullPath: '/evidence'
+      preLoaderRoute: typeof AppEvidenceRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/history': {
+      id: '/_app/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof AppHistoryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/resumes': {
+      id: '/_app/resumes'
+      path: '/resumes'
+      fullPath: '/resumes'
+      preLoaderRoute: typeof AppResumesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/workspace': {
+      id: '/_app/workspace'
+      path: '/workspace'
+      fullPath: '/workspace'
+      preLoaderRoute: typeof AppWorkspaceRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/editor/$runId': {
+      id: '/_app/editor/$runId'
+      path: '/editor/$runId'
+      fullPath: '/editor/$runId'
+      preLoaderRoute: typeof AppEditorRunIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/results/$runId': {
+      id: '/_app/results/$runId'
+      path: '/results/$runId'
+      fullPath: '/results/$runId'
+      preLoaderRoute: typeof AppResultsRunIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings/account': {
+      id: '/_app/settings/account'
+      path: '/settings/account'
+      fullPath: '/settings/account'
+      preLoaderRoute: typeof AppSettingsAccountRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings/preferences': {
+      id: '/_app/settings/preferences'
+      path: '/settings/preferences'
+      fullPath: '/settings/preferences'
+      preLoaderRoute: typeof AppSettingsPreferencesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings/providers': {
+      id: '/_app/settings/providers'
+      path: '/settings/providers'
+      fullPath: '/settings/providers'
+      preLoaderRoute: typeof AppSettingsProvidersRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppEvidenceRoute: typeof AppEvidenceRoute
+  AppHistoryRoute: typeof AppHistoryRoute
+  AppResumesRoute: typeof AppResumesRoute
+  AppWorkspaceRoute: typeof AppWorkspaceRoute
+  AppEditorRunIdRoute: typeof AppEditorRunIdRoute
+  AppResultsRunIdRoute: typeof AppResultsRunIdRoute
+  AppSettingsAccountRoute: typeof AppSettingsAccountRoute
+  AppSettingsPreferencesRoute: typeof AppSettingsPreferencesRoute
+  AppSettingsProvidersRoute: typeof AppSettingsProvidersRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppDashboardRoute: AppDashboardRoute,
+  AppEvidenceRoute: AppEvidenceRoute,
+  AppHistoryRoute: AppHistoryRoute,
+  AppResumesRoute: AppResumesRoute,
+  AppWorkspaceRoute: AppWorkspaceRoute,
+  AppEditorRunIdRoute: AppEditorRunIdRoute,
+  AppResultsRunIdRoute: AppResultsRunIdRoute,
+  AppSettingsAccountRoute: AppSettingsAccountRoute,
+  AppSettingsPreferencesRoute: AppSettingsPreferencesRoute,
+  AppSettingsProvidersRoute: AppSettingsProvidersRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
