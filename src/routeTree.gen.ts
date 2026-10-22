@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppHistoryRouteImport } from './routes/_app.history'
+import { Route as AppResumesRouteImport } from './routes/_app.resumes'
 import { Route as AppWorkspaceRouteImport } from './routes/_app.workspace'
 import { Route as AppEditorRunIdRouteImport } from './routes/_app.editor.$runId'
 import { Route as AppResultsRunIdRouteImport } from './routes/_app.results.$runId'
@@ -36,6 +38,16 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
+const AppHistoryRoute = AppHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppResumesRoute = AppResumesRouteImport.update({
+  id: '/resumes',
+  path: '/resumes',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppWorkspaceRoute = AppWorkspaceRouteImport.update({
   id: '/workspace',
   path: '/workspace',
@@ -56,6 +68,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AppDashboardRoute
+  '/history': typeof AppHistoryRoute
+  '/resumes': typeof AppResumesRoute
   '/workspace': typeof AppWorkspaceRoute
   '/editor/$runId': typeof AppEditorRunIdRoute
   '/results/$runId': typeof AppResultsRunIdRoute
@@ -64,6 +78,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AppDashboardRoute
+  '/history': typeof AppHistoryRoute
+  '/resumes': typeof AppResumesRoute
   '/workspace': typeof AppWorkspaceRoute
   '/editor/$runId': typeof AppEditorRunIdRoute
   '/results/$runId': typeof AppResultsRunIdRoute
@@ -74,6 +90,8 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/history': typeof AppHistoryRoute
+  '/_app/resumes': typeof AppResumesRoute
   '/_app/workspace': typeof AppWorkspaceRoute
   '/_app/editor/$runId': typeof AppEditorRunIdRoute
   '/_app/results/$runId': typeof AppResultsRunIdRoute
@@ -84,6 +102,8 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/history'
+    | '/resumes'
     | '/workspace'
     | '/editor/$runId'
     | '/results/$runId'
@@ -92,6 +112,8 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/history'
+    | '/resumes'
     | '/workspace'
     | '/editor/$runId'
     | '/results/$runId'
@@ -101,6 +123,8 @@ export interface FileRouteTypes {
     | '/_app'
     | '/auth'
     | '/_app/dashboard'
+    | '/_app/history'
+    | '/_app/resumes'
     | '/_app/workspace'
     | '/_app/editor/$runId'
     | '/_app/results/$runId'
@@ -142,6 +166,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/history': {
+      id: '/_app/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof AppHistoryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/resumes': {
+      id: '/_app/resumes'
+      path: '/resumes'
+      fullPath: '/resumes'
+      preLoaderRoute: typeof AppResumesRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/workspace': {
       id: '/_app/workspace'
       path: '/workspace'
@@ -168,6 +206,8 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppHistoryRoute: typeof AppHistoryRoute
+  AppResumesRoute: typeof AppResumesRoute
   AppWorkspaceRoute: typeof AppWorkspaceRoute
   AppEditorRunIdRoute: typeof AppEditorRunIdRoute
   AppResultsRunIdRoute: typeof AppResultsRunIdRoute
@@ -175,6 +215,8 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppHistoryRoute: AppHistoryRoute,
+  AppResumesRoute: AppResumesRoute,
   AppWorkspaceRoute: AppWorkspaceRoute,
   AppEditorRunIdRoute: AppEditorRunIdRoute,
   AppResultsRunIdRoute: AppResultsRunIdRoute,
