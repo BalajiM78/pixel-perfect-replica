@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppEvidenceRouteImport } from './routes/_app.evidence'
 import { Route as AppHistoryRouteImport } from './routes/_app.history'
 import { Route as AppResumesRouteImport } from './routes/_app.resumes'
 import { Route as AppWorkspaceRouteImport } from './routes/_app.workspace'
@@ -36,6 +37,11 @@ const AuthRoute = AuthRouteImport.update({
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEvidenceRoute = AppEvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
   getParentRoute: () => AppRoute,
 } as any)
 const AppHistoryRoute = AppHistoryRouteImport.update({
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AppDashboardRoute
+  '/evidence': typeof AppEvidenceRoute
   '/history': typeof AppHistoryRoute
   '/resumes': typeof AppResumesRoute
   '/workspace': typeof AppWorkspaceRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AppDashboardRoute
+  '/evidence': typeof AppEvidenceRoute
   '/history': typeof AppHistoryRoute
   '/resumes': typeof AppResumesRoute
   '/workspace': typeof AppWorkspaceRoute
@@ -90,6 +98,7 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/evidence': typeof AppEvidenceRoute
   '/_app/history': typeof AppHistoryRoute
   '/_app/resumes': typeof AppResumesRoute
   '/_app/workspace': typeof AppWorkspaceRoute
@@ -102,6 +111,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/evidence'
     | '/history'
     | '/resumes'
     | '/workspace'
@@ -112,6 +122,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/evidence'
     | '/history'
     | '/resumes'
     | '/workspace'
@@ -123,6 +134,7 @@ export interface FileRouteTypes {
     | '/_app'
     | '/auth'
     | '/_app/dashboard'
+    | '/_app/evidence'
     | '/_app/history'
     | '/_app/resumes'
     | '/_app/workspace'
@@ -166,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/evidence': {
+      id: '/_app/evidence'
+      path: '/evidence'
+      fullPath: '/evidence'
+      preLoaderRoute: typeof AppEvidenceRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/history': {
       id: '/_app/history'
       path: '/history'
@@ -206,6 +225,7 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppEvidenceRoute: typeof AppEvidenceRoute
   AppHistoryRoute: typeof AppHistoryRoute
   AppResumesRoute: typeof AppResumesRoute
   AppWorkspaceRoute: typeof AppWorkspaceRoute
@@ -215,6 +235,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppEvidenceRoute: AppEvidenceRoute,
   AppHistoryRoute: AppHistoryRoute,
   AppResumesRoute: AppResumesRoute,
   AppWorkspaceRoute: AppWorkspaceRoute,
