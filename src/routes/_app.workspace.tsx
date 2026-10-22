@@ -17,7 +17,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Link2, Loader2, Play, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import { formatBytes } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_app/workspace")({
@@ -324,7 +323,7 @@ function Workspace() {
 
           {running ? (
             <div className="space-y-2" aria-live="polite">
-              <Progress value={undefined} />
+              <Progress value={35} className="animate-pulse" aria-label="Analysis in progress" />
               <p className="text-xs text-muted-foreground">{progressLabel}</p>
               <Alert>
                 <AlertDescription className="text-xs">
