@@ -14,6 +14,7 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 import { Route as AppWorkspaceRouteImport } from './routes/_app.workspace'
+import { Route as AppResultsRunIdRouteImport } from './routes/_app.results.$runId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -39,18 +40,25 @@ const AppWorkspaceRoute = AppWorkspaceRouteImport.update({
   path: '/workspace',
   getParentRoute: () => AppRoute,
 } as any)
+const AppResultsRunIdRoute = AppResultsRunIdRouteImport.update({
+  id: '/results/$runId',
+  path: '/results/$runId',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AppDashboardRoute
   '/workspace': typeof AppWorkspaceRoute
+  '/results/$runId': typeof AppResultsRunIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AppDashboardRoute
   '/workspace': typeof AppWorkspaceRoute
+  '/results/$runId': typeof AppResultsRunIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -59,14 +67,21 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/workspace': typeof AppWorkspaceRoute
+  '/_app/results/$runId': typeof AppResultsRunIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/workspace'
+  fullPaths: '/' | '/auth' | '/dashboard' | '/workspace' | '/results/$runId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/workspace'
+  to: '/' | '/auth' | '/dashboard' | '/workspace' | '/results/$runId'
   id:
-    '__root__' | '/' | '/_app' | '/auth' | '/_app/dashboard' | '/_app/workspace'
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/auth'
+    | '/_app/dashboard'
+    | '/_app/workspace'
+    | '/_app/results/$runId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -112,17 +127,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppWorkspaceRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/results/$runId': {
+      id: '/_app/results/$runId'
+      path: '/results/$runId'
+      fullPath: '/results/$runId'
+      preLoaderRoute: typeof AppResultsRunIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
   AppWorkspaceRoute: typeof AppWorkspaceRoute
+  AppResultsRunIdRoute: typeof AppResultsRunIdRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
   AppWorkspaceRoute: AppWorkspaceRoute,
+  AppResultsRunIdRoute: AppResultsRunIdRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
