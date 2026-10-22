@@ -19,6 +19,9 @@ import { Route as AppResumesRouteImport } from './routes/_app.resumes'
 import { Route as AppWorkspaceRouteImport } from './routes/_app.workspace'
 import { Route as AppEditorRunIdRouteImport } from './routes/_app.editor.$runId'
 import { Route as AppResultsRunIdRouteImport } from './routes/_app.results.$runId'
+import { Route as AppSettingsAccountRouteImport } from './routes/_app.settings.account'
+import { Route as AppSettingsPreferencesRouteImport } from './routes/_app.settings.preferences'
+import { Route as AppSettingsProvidersRouteImport } from './routes/_app.settings.providers'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -69,6 +72,21 @@ const AppResultsRunIdRoute = AppResultsRunIdRouteImport.update({
   path: '/results/$runId',
   getParentRoute: () => AppRoute,
 } as any)
+const AppSettingsAccountRoute = AppSettingsAccountRouteImport.update({
+  id: '/settings/account',
+  path: '/settings/account',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsPreferencesRoute = AppSettingsPreferencesRouteImport.update({
+  id: '/settings/preferences',
+  path: '/settings/preferences',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsProvidersRoute = AppSettingsProvidersRouteImport.update({
+  id: '/settings/providers',
+  path: '/settings/providers',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -80,6 +98,9 @@ export interface FileRoutesByFullPath {
   '/workspace': typeof AppWorkspaceRoute
   '/editor/$runId': typeof AppEditorRunIdRoute
   '/results/$runId': typeof AppResultsRunIdRoute
+  '/settings/account': typeof AppSettingsAccountRoute
+  '/settings/preferences': typeof AppSettingsPreferencesRoute
+  '/settings/providers': typeof AppSettingsProvidersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -91,6 +112,9 @@ export interface FileRoutesByTo {
   '/workspace': typeof AppWorkspaceRoute
   '/editor/$runId': typeof AppEditorRunIdRoute
   '/results/$runId': typeof AppResultsRunIdRoute
+  '/settings/account': typeof AppSettingsAccountRoute
+  '/settings/preferences': typeof AppSettingsPreferencesRoute
+  '/settings/providers': typeof AppSettingsProvidersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -104,6 +128,9 @@ export interface FileRoutesById {
   '/_app/workspace': typeof AppWorkspaceRoute
   '/_app/editor/$runId': typeof AppEditorRunIdRoute
   '/_app/results/$runId': typeof AppResultsRunIdRoute
+  '/_app/settings/account': typeof AppSettingsAccountRoute
+  '/_app/settings/preferences': typeof AppSettingsPreferencesRoute
+  '/_app/settings/providers': typeof AppSettingsProvidersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,6 +144,9 @@ export interface FileRouteTypes {
     | '/workspace'
     | '/editor/$runId'
     | '/results/$runId'
+    | '/settings/account'
+    | '/settings/preferences'
+    | '/settings/providers'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -128,6 +158,9 @@ export interface FileRouteTypes {
     | '/workspace'
     | '/editor/$runId'
     | '/results/$runId'
+    | '/settings/account'
+    | '/settings/preferences'
+    | '/settings/providers'
   id:
     | '__root__'
     | '/'
@@ -140,6 +173,9 @@ export interface FileRouteTypes {
     | '/_app/workspace'
     | '/_app/editor/$runId'
     | '/_app/results/$runId'
+    | '/_app/settings/account'
+    | '/_app/settings/preferences'
+    | '/_app/settings/providers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -220,6 +256,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppResultsRunIdRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/settings/account': {
+      id: '/_app/settings/account'
+      path: '/settings/account'
+      fullPath: '/settings/account'
+      preLoaderRoute: typeof AppSettingsAccountRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings/preferences': {
+      id: '/_app/settings/preferences'
+      path: '/settings/preferences'
+      fullPath: '/settings/preferences'
+      preLoaderRoute: typeof AppSettingsPreferencesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings/providers': {
+      id: '/_app/settings/providers'
+      path: '/settings/providers'
+      fullPath: '/settings/providers'
+      preLoaderRoute: typeof AppSettingsProvidersRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -231,6 +288,9 @@ interface AppRouteChildren {
   AppWorkspaceRoute: typeof AppWorkspaceRoute
   AppEditorRunIdRoute: typeof AppEditorRunIdRoute
   AppResultsRunIdRoute: typeof AppResultsRunIdRoute
+  AppSettingsAccountRoute: typeof AppSettingsAccountRoute
+  AppSettingsPreferencesRoute: typeof AppSettingsPreferencesRoute
+  AppSettingsProvidersRoute: typeof AppSettingsProvidersRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -241,6 +301,9 @@ const AppRouteChildren: AppRouteChildren = {
   AppWorkspaceRoute: AppWorkspaceRoute,
   AppEditorRunIdRoute: AppEditorRunIdRoute,
   AppResultsRunIdRoute: AppResultsRunIdRoute,
+  AppSettingsAccountRoute: AppSettingsAccountRoute,
+  AppSettingsPreferencesRoute: AppSettingsPreferencesRoute,
+  AppSettingsProvidersRoute: AppSettingsProvidersRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
