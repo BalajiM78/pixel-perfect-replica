@@ -1,7 +1,7 @@
-import { createFileRoute, Outlet, Navigate, Link } from "@tanstack/react-router";
+import { createFileRoute, Outlet, Navigate, Link, useLocation } from "@tanstack/react-router";
 import { useSession } from "@/lib/auth";
 import { AppShell, BrandMark } from "@/components/app-shell";
-import { ConnectionNotice, LoadingBlock } from "@/components/page-states";
+import { ConnectionNotice } from "@/components/page-states";
 
 export const Route = createFileRoute("/_app")({
   component: AppLayout,
@@ -9,13 +9,15 @@ export const Route = createFileRoute("/_app")({
 
 function AppLayout() {
   const session = useSession();
-  const routerState = useRouterLocation();
+  const location = useLocation();
 
   if (session.status === "loading") {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background">
         <BrandMark />
-        <LoadingBlock label="Checking your session" />
+        <p className="text-sm text-muted-foreground" role="status">
+          Checking your session…
+        </p>
       </div>
     );
   }
@@ -27,27 +29,23 @@ function AppLayout() {
           <BrandMark />
         </div>
         <ConnectionNotice />
-        <p className="text-center text-sm text-muted-foreground">
-          The studio is installed and waiting for your backend connection details.
+        <p className="mt-6 text-center text-sm text-muted-foreground">
+          The studio is installed and waiting for your backend connection details.{" "}
+          <Link to="/auth" className="underline">
+            Auth page
+          </Link>
         </p>
       </div>
     );
   }
 
   if (session.status === "signed_out") {
-    return <Navigate to="/auth" search={{ next: routerState }} replace />;
+    return <Navigate to="/auth" search={{ next: location.pathname }} replace />;
   }
 
-  return <AppShell>{<Outlet />}</AppShell>;
-}
-
-function useRouterLocation(): string | undefined {
-  const { href } = useCurrentLocation();
-  return href && href !== "/" ? href : undefined;
-}
-
-import { useLocation } from "@tanstack/react-router";
-
-function useCurrentLocation() {
-  return useLocation();
+  return (
+    <AppShell>
+      <Outlet />
+    </AppShell>
+  );
 }
