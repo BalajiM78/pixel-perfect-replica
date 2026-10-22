@@ -165,7 +165,7 @@ function Workspace() {
                       ) : null}
                     </span>
                     <span className="shrink-0 text-xs text-muted-foreground">
-                      {r.source_format.toUpperCase()} · {formatBytes(0) === "0.0 B" ? "" : ""} {r.created_at ? new Date(r.created_at).toLocaleDateString() : ""}
+                      {r.source_format.toUpperCase()} · {r.created_at ? new Date(r.created_at).toLocaleDateString() : ""}
                     </span>
                   </Label>
                 ))}
