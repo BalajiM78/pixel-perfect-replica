@@ -59,10 +59,10 @@ function EditorPage() {
   }, []);
 
   useEffect(() => {
-    if (!result?.artifacts?.tex) return;
+    if (!result?.artifacts?.["tex"]) return;
     let cancelled = false;
     setTexError(null);
-    fetchArtifactBlob(result.artifacts.tex)
+    fetchArtifactBlob(result.artifacts["tex"])
       .then(async ({ blob }) => {
         if (cancelled) return;
         const text = await blob.text();
@@ -75,7 +75,7 @@ function EditorPage() {
     return () => {
       cancelled = true;
     };
-  }, [result?.artifacts?.tex]);
+  }, [result?.artifacts?.["tex"]]);
 
   const dirty = source !== null && savedSource !== null && source !== savedSource;
   const stalePreview = dirty && pdfUrl !== null;
@@ -151,7 +151,7 @@ function EditorPage() {
         <LoadingBlock label="Loading run" />
       ) : recordQuery.isError ? (
         <ErrorState message={recordQuery.error.message} retry={() => recordQuery.refetch()} />
-      ) : !result ? null : !result.artifacts?.tex ? (
+      ) : !result ? null : !result.artifacts?.["tex"] ? (
         <Card>
           <CardContent className="py-10 text-center text-sm text-muted-foreground">
             This run has no tailored LaTeX source to edit. Re-run the analysis with tailoring enabled to get one.

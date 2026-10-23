@@ -121,7 +121,7 @@ export function ResultsView({ result }: { result: AnalysisResponse }) {
 
             <Separator className="my-4" />
             <div className="flex flex-wrap gap-2">
-              {result.artifacts?.tex ? (
+              {result.artifacts?.["tex"] ? (
                 <Button size="sm" asChild>
                   <Link to="/editor/$runId" params={{ runId: result.runId }}>
                     <Wand2 className="size-4" /> Open in editor
@@ -296,7 +296,7 @@ export function ResultsView({ result }: { result: AnalysisResponse }) {
                   {(report.ats_issues || []).map((iss, i) => (
                     <div key={i} className="flex items-center justify-between gap-3 text-sm">
                       <span className="text-muted-foreground">{iss.message}</span>
-                      <span className={`rounded px-1.5 py-0.5 text-[11px] font-medium ${severityTone[iss.severity] || severityTone.low}`}>
+                      <span className={`rounded px-1.5 py-0.5 text-[11px] font-medium ${severityTone[iss.severity] || severityTone["low"]}`}>
                         {iss.label}
                       </span>
                     </div>
