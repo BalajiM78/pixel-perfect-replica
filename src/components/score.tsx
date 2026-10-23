@@ -9,9 +9,9 @@ export function ScoreGauge({
   sublabel,
 }: {
   score: number;
-  size?: number;
-  label?: string;
-  sublabel?: string;
+  size?: number | undefined;
+  label?: string | undefined;
+  sublabel?: string | undefined;
 }) {
   const clamped = Math.max(0, Math.min(100, score));
   const stroke = 12;
@@ -131,7 +131,7 @@ export function SkillStatusBadge({ status }: { status: string }) {
     <span
       className={cn(
         "inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-medium",
-        skillTones[status] || skillTones.unsupported
+        skillTones[status] || skillTones["unsupported"]
       )}
     >
       {skillLabels[status] || status}

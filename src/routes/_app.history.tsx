@@ -142,14 +142,16 @@ function HistoryPage() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-1">
-                          {h.artifacts?.pdf ? (
+                          {h.artifacts?.["pdf"] ? (
                             <Button
                               size="icon"
                               variant="ghost"
                               aria-label="Download PDF"
                               onClick={async () => {
                                 try {
-                                  await downloadArtifact(h.artifacts.pdf, `${h.id}.pdf`);
+                                  const pdf = h.artifacts?.["pdf"];
+                                  if (!pdf) return;
+                                  await downloadArtifact(pdf, `${h.id}.pdf`);
                                 } catch (err: any) {
                                   toast.error(err?.message || "Download failed.");
                                 }

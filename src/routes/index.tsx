@@ -113,7 +113,9 @@ function Landing() {
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link to="/auth?mode=signup">Create a free account</Link>
+                  <Link to="/auth" search={{ mode: "signup" }}>
+                    Create a free account
+                  </Link>
                 </Button>
               </div>
               <p className="mt-4 text-xs text-muted-foreground">

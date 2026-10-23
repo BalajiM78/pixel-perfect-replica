@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { useSession, useSignOut } from "@/lib/auth";
 import { useTheme } from "@/lib/theme";
@@ -30,7 +30,17 @@ import {
   Wand2,
 } from "lucide-react";
 
-const nav = [
+type NavRoute =
+  | "/dashboard"
+  | "/workspace"
+  | "/history"
+  | "/resumes"
+  | "/evidence"
+  | "/settings/providers"
+  | "/settings/account"
+  | "/settings/preferences";
+
+const nav: { to: NavRoute; label: string; icon: typeof LayoutDashboard }[] = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/workspace", label: "Workspace", icon: Wand2 },
   { to: "/history", label: "History", icon: History },
@@ -38,28 +48,23 @@ const nav = [
   { to: "/evidence", label: "Evidence", icon: FileText },
 ];
 
-const settingsNav = [
+const settingsNav: { to: NavRoute; label: string; icon: typeof LayoutDashboard }[] = [
   { to: "/settings/providers", label: "AI providers", icon: BrainCircuit },
   { to: "/settings/account", label: "Account", icon: UserRound },
   { to: "/settings/preferences", label: "Preferences", icon: Settings },
 ];
 
-function NavItem({ to, label, icon: Icon }: { to: string; label: string; icon: typeof LayoutDashboard }) {
+function NavItem({ to, label, icon: Icon }: { to: NavRoute; label: string; icon: typeof LayoutDashboard }) {
   return (
-    <NavLink
+    <Link
       to={to}
-      className={({ isActive }) =>
-        cn(
-          "flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-          isActive
-            ? "bg-sidebar-accent text-sidebar-accent-foreground"
-            : "text-sidebar-foreground/75 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
-        )
-      }
+      className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium transition-colors text-sidebar-foreground/75 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
+      activeProps={{ className: "bg-sidebar-accent text-sidebar-accent-foreground" }}
+      aria-label={label}
     >
       <Icon className="size-4 shrink-0" aria-hidden />
       {label}
-    </NavLink>
+    </Link>
   );
 }
 
@@ -190,18 +195,14 @@ export function AppShell({ children }: { children: ReactNode }) {
           {/* Mobile nav row */}
           <nav aria-label="Primary mobile" className="flex items-center gap-1 overflow-x-auto border-t px-3 py-1.5 lg:hidden">
             {[...nav, ...settingsNav].map((item) => (
-              <NavLink
+              <Link
                 key={item.to}
                 to={item.to}
-                className={({ isActive }) =>
-                  cn(
-                    "whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium",
-                    isActive ? "bg-accent text-accent-foreground" : "text-muted-foreground"
-                  )
-                }
+                className="whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium text-muted-foreground"
+                activeProps={{ className: "bg-accent text-accent-foreground" }}
               >
                 {item.label}
-              </NavLink>
+              </Link>
             ))}
           </nav>
         </header>

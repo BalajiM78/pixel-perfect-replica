@@ -65,15 +65,15 @@ export interface ExtractedJob {
 
 export interface AnalysisPayload {
   jdText: string;
-  resumePath?: string;
-  resumeId?: string;
-  jobUrl?: string;
-  tailor?: boolean;
-  compile?: boolean;
-  topN?: number;
-  objectiveOverride?: string;
-  aiReview?: boolean;
-  aiProvider?: string;
+  resumePath?: string | undefined;
+  resumeId?: string | undefined;
+  jobUrl?: string | undefined;
+  tailor?: boolean | undefined;
+  compile?: boolean | undefined;
+  topN?: number | undefined;
+  objectiveOverride?: string | undefined;
+  aiReview?: boolean | undefined;
+  aiProvider?: string | undefined;
 }
 
 export interface ScoreCategory {
@@ -139,7 +139,9 @@ export interface AiReview {
 export interface AnalysisResponse {
   ok: boolean;
   runId: string;
-  persistence?: { persisted: boolean; mode: "cloud" | "local_only" | "unpersisted"; error?: string; warning?: string };
+  persistence?:
+    | { persisted: boolean; mode: "cloud" | "local_only" | "unpersisted"; error?: string; warning?: string }
+    | undefined;
   report: {
     engine_version: string;
     generated_at: string;
@@ -178,12 +180,12 @@ export interface AnalysisResponse {
   };
   before?: any;
   ats: any;
-  edits?: Array<{ kind: string; summary: string; details?: string }>;
-  compile?: { success: boolean; pages: number; target_pages: number; log_tail?: string } | null;
+  edits?: Array<{ kind: string; summary: string; details?: string }> | undefined;
+  compile?: { success: boolean; pages: number; target_pages: number; log_tail?: string } | null | undefined;
   artifacts: Record<string, string>;
   aiReview?: AiReview | null;
-  scoreDelta?: number;
-  jobDescription?: string;
+  scoreDelta?: number | undefined;
+  jobDescription?: string | undefined;
 }
 
 export interface HistoryRecord {
@@ -254,10 +256,10 @@ export interface ProviderConfigData {
 }
 
 export interface ProviderSettingsPayload {
-  preferredProvider?: string;
-  fallbackOrder?: string[];
-  providers?: Record<string, { enabled: boolean; apiKey?: string; model?: string }>;
-  webReader?: { enabled: boolean; provider: "jina" | "readability"; apiKey?: string; endpoint?: string };
+  preferredProvider?: string | undefined;
+  fallbackOrder?: string[] | undefined;
+  providers?: Record<string, { enabled: boolean; apiKey?: string | undefined; model?: string | undefined }> | undefined;
+  webReader?: { enabled: boolean; provider: "jina" | "readability"; apiKey?: string | undefined; endpoint?: string | undefined };
 }
 
 export interface CompanyResearch {
@@ -357,7 +359,9 @@ export function artifactUrl(path: string): string {
 }
 
 /** Fetch an artifact as a blob using the auth header, returning an object URL for iframe/img/download. */
-export async function fetchArtifactBlob(path: string): Promise<{ url: string; blob: Blob; filename?: string }> {
+export async function fetchArtifactBlob(
+  path: string
+): Promise<{ url: string; blob: Blob; filename?: string | undefined }> {
   let token: string | null = null;
   try {
     token = await getCurrentToken();
@@ -437,7 +441,7 @@ export const api = {
       method: "PUT",
       body: JSON.stringify(settings),
     }),
-  testProvider: (providerId: string, customKey?: string, model?: string) =>
+  testProvider: (providerId: string, customKey?: string | undefined, model?: string | undefined) =>
     request<{ ok: boolean; latencyMs: number; model: string; error?: string }>(`/api/providers/${providerId}/test`, {
       method: "POST",
       body: JSON.stringify({ apiKey: customKey, model }),
