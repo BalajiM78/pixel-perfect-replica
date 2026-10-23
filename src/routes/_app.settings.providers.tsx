@@ -121,7 +121,9 @@ function ProvidersPage() {
     const idx = order.indexOf(id);
     const next = idx + dir;
     if (idx < 0 || next < 0 || next >= order.length) return;
-    [order[idx], order[next]] = [order[next], order[idx]];
+    const moved = order[idx] as string;
+    order[idx] = order[next] as string;
+    order[next] = moved;
     setDraft({ ...draft, fallbackOrder: order });
   };
 
