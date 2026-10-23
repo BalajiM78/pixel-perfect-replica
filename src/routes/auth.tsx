@@ -13,10 +13,14 @@ import { LoadingBlock } from "@/components/page-states";
 import { Eye, EyeOff, TriangleAlert } from "lucide-react";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    mode: (search.mode as string | undefined) || undefined,
-    next: (search.next as string | undefined) || undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { mode?: string; next?: string } => {
+    const mode = typeof search["mode"] === "string" && search["mode"] ? search["mode"] : undefined;
+    const next = typeof search["next"] === "string" && search["next"] ? search["next"] : undefined;
+    const out: { mode?: string; next?: string } = {};
+    if (mode) out.mode = mode;
+    if (next) out.next = next;
+    return out;
+  },
   component: AuthPage,
 });
 

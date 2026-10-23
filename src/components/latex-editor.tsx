@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { StreamLanguage } from "@codemirror/language";
-import { latex } from "@codemirror/legacy-modes/mode/latex";
+import { stex } from "@codemirror/legacy-modes/mode/stex";
 import { EditorView } from "@codemirror/view";
 import { useTheme } from "@/lib/theme";
 
@@ -19,7 +19,7 @@ export default function LatexEditor({
   const { theme } = useTheme();
   const extensions = useMemo(
     () => [
-      StreamLanguage.define(latex),
+      StreamLanguage.define(stex),
       EditorView.lineWrapping,
       EditorView.theme({
         "&": { fontSize: "13px" },
